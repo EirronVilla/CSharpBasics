@@ -86,22 +86,88 @@ namespace SmartMarketConsole.Services.Impl
 
         public void DeleteCustomer(int customerId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if(customerId <= 0)
+                {
+                    throw new Exception("Invalid customer ID.");
+                }
+
+                 _customerRepository.DeleteCustomer(customerId);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while deleting the customer: {ex.Message}");
+            }
         }
 
         public ICollection<Customer> GetAllCustomers()
         {
-            throw new NotImplementedException();
+            return _customerRepository.GetAllCustomers();
         }
 
         public Customer GetCustomerById(int customerId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if(customerId <= 0)
+                {
+                    throw new Exception("Invalid customer ID.");
+                }
+
+                var customer = _customerRepository.GetCustomerById(customerId);
+                if(customer is null)
+                {
+                    throw new Exception("Customer not found.");
+                }
+
+                return customer;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while retrieving the customer: {ex.Message}");
+                return null;
+            }
         }
 
         public bool UpdateCustomers(int customerId, string name, string email, string phone)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if(customerId <= 0)
+                {
+                    throw new Exception("Invalid customer ID.");
+                }
+
+                if(string.IsNullOrEmpty(name))
+                {
+                    throw new Exception("Customer name cannot be empty.");
+                }
+
+                if(string.IsNullOrEmpty(email))
+                {
+                    throw new Exception("Customer email cannot be empty.");
+                }
+
+                var customer = _customerRepository.GetCustomerById(customerId);
+                if(customer is null)
+                {
+                    throw new Exception("Customer not found.");
+                }
+
+                customer.Name = name;
+                customer.Email = email;
+                customer.Phone = phone;
+
+                _customerRepository.UpdateCustomer(customer);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while updating the customer: {ex.Message}");
+                return false;
+            }
         }
     }
 }
