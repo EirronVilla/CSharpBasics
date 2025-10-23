@@ -1,6 +1,6 @@
 ﻿using SmartMarketConsole.Models;
 
-namespace SmartMarketConsole.Repositories
+namespace SmartMarketConsole.Repositories.Interfaces
 {
     public interface ICategoryRepository
     {
@@ -8,6 +8,7 @@ namespace SmartMarketConsole.Repositories
         public Category? GetCategoryById(int categoryId);
         public void UpdateCategory(Category category);
         public void DeleteCategory(int categoryId);
-        public List<Category> GetAllCategories();
+        public ICollection<Category> GetAllCategories();
+        public int GetNextCategoryId();
     }
 }

@@ -1,11 +1,17 @@
 ﻿using SmartMarketConsole.Data;
 using SmartMarketConsole.Models;
+using SmartMarketConsole.Repositories.Interfaces;
 
-namespace SmartMarketConsole.Repositories
+namespace SmartMarketConsole.Repositories.Impl
 {
     public class TransactionRepository : ITransactionRepository
     {
-        private readonly DbContext _dbContext = DbContext.GetInstance();
+        private readonly IDbContext _dbContext;
+
+        public TransactionRepository(IDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
 
         public bool AddTransaction(Transaction transaction)
         {
@@ -31,7 +37,7 @@ namespace SmartMarketConsole.Repositories
             }
         }
 
-        public List<Transaction> GetAllTransactions()
+        public ICollection<Transaction> GetAllTransactions()
         {
             try
             {
@@ -42,6 +48,11 @@ namespace SmartMarketConsole.Repositories
                 Console.WriteLine($"An error occurred while retrieving transactions: {ex.Message}");
                 return new List<Transaction>();
             }
+        }
+
+        public int GetNextTransactionId()
+        {
+            return _dbContext.TransactionStorage.Count == 0 ? 1 : _dbContext.TransactionStorage.Keys.Max() + 1;
         }
 
         public Transaction? GetTransactionById(int transactionId)

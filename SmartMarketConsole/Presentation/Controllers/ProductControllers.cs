@@ -1,6 +1,6 @@
 ﻿using SmartMarketConsole.Models;
 using SmartMarketConsole.Presentation.Views;
-using SmartMarketConsole.Services;
+using SmartMarketConsole.Services.Interfaces;
 
 namespace SmartMarketConsole.Presentation.Controllers
 {

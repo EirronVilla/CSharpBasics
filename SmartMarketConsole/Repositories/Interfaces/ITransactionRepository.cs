@@ -1,6 +1,6 @@
 ﻿using SmartMarketConsole.Models;
 
-namespace SmartMarketConsole.Repositories
+namespace SmartMarketConsole.Repositories.Interfaces
 {
     public interface ITransactionRepository
     {
@@ -8,6 +8,7 @@ namespace SmartMarketConsole.Repositories
         public Transaction? GetTransactionById(int transactionId);
         public void UpdateTransaction(Transaction transaction);
         public void DeleteTransaction(int transactionId);
-        public List<Transaction> GetAllTransactions();
+        public ICollection<Transaction> GetAllTransactions();
+        public int GetNextTransactionId();
     }
 }

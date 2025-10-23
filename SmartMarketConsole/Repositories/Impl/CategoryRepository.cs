@@ -1,12 +1,17 @@
-﻿
-using SmartMarketConsole.Data;
+﻿using SmartMarketConsole.Data;
 using SmartMarketConsole.Models;
+using SmartMarketConsole.Repositories.Interfaces;
 
-namespace SmartMarketConsole.Repositories
+namespace SmartMarketConsole.Repositories.Impl
 {
     public  class CategoryRepository : ICategoryRepository
     {
-        private readonly DbContext _dbContext = DbContext.GetInstance();
+        private readonly IDbContext _dbContext;
+
+        public CategoryRepository(IDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
 
         public bool AddCategory(Category category)
         {
@@ -32,7 +37,7 @@ namespace SmartMarketConsole.Repositories
             }
         }
 
-        public List<Category> GetAllCategories()
+        public ICollection<Category> GetAllCategories()
         {
             try
             {
@@ -62,6 +67,11 @@ namespace SmartMarketConsole.Repositories
                 Console.WriteLine("Category not found.");
                 return null;
             }
+        }
+
+        public int GetNextCategoryId()
+        {
+            return _dbContext.CategoryStorage.Count == 0 ? 1 : _dbContext.CategoryStorage.Keys.Max() + 1;
         }
 
         public void UpdateCategory(Category category)

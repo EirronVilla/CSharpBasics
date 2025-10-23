@@ -1,11 +1,17 @@
 ﻿using SmartMarketConsole.Data;
 using SmartMarketConsole.Models;
+using SmartMarketConsole.Repositories.Interfaces;
 
-namespace SmartMarketConsole.Repositories
+namespace SmartMarketConsole.Repositories.Impl
 {
     public class ProductRepository : IProductRepository
     {
-        private readonly DbContext _dbContext = DbContext.GetInstance();
+        private readonly IDbContext _dbContext;
+
+        public ProductRepository(IDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
 
         public bool AddProduct(Product product)
         {
@@ -31,7 +37,7 @@ namespace SmartMarketConsole.Repositories
             }
         }
 
-        public List<Product> GetAllProducts()
+        public ICollection<Product> GetAllProducts()
         {
             try
             {

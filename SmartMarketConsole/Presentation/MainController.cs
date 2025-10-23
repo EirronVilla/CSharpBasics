@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SmartMarketConsole.Presentation
+﻿namespace SmartMarketConsole.Presentation
 {
-    internal class MainController
+    public class MainController
     {
+        MainView view {get; set; }
+
     }
 }

@@ -1,7 +1,8 @@
 ﻿using SmartMarketConsole.Models;
-using SmartMarketConsole.Repositories;
+using SmartMarketConsole.Repositories.Interfaces;
+using SmartMarketConsole.Services.Interfaces;
 
-namespace SmartMarketConsole.Services
+namespace SmartMarketConsole.Services.Impl
 {
     public class ProductService : IProductService
     {
@@ -69,6 +70,12 @@ namespace SmartMarketConsole.Services
                     throw new Exception("Product ID must be greater than zero.");
                 }
 
+                var productExists = _productRepository.GetProductById(productId);
+                if (productExists is null)
+                {
+                    throw new Exception("Product does not exist.");
+                }
+
                 _productRepository.DeleteProduct(productId);
 
             }
@@ -77,12 +84,6 @@ namespace SmartMarketConsole.Services
                 Console.WriteLine($"An error occurred while deleting the product: {ex.Message}");
                 throw;
             }
-        }
-
-        public List<Product> GetAllProducts()
-        {
-            var allProducts = _productRepository.GetAllProducts();
-            return allProducts;
         }
 
         public Product? GetProductById(int productId)
@@ -140,6 +141,11 @@ namespace SmartMarketConsole.Services
                 Console.WriteLine($"An error occurred while updating the product: {ex.Message}");
                 return false;
             }
+        }
+
+        public ICollection<Product> GetAllProducts()
+        {
+            return _productRepository.GetAllProducts();
         }
     }
 }

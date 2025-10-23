@@ -1,6 +1,6 @@
 ﻿using SmartMarketConsole.Models;
 
-namespace SmartMarketConsole.Repositories
+namespace SmartMarketConsole.Repositories.Interfaces
 {
     public interface IProductRepository
     {
@@ -8,7 +8,7 @@ namespace SmartMarketConsole.Repositories
         public Product? GetProductById(int productId);
         public void UpdateProduct(Product product);
         public void DeleteProduct(int productId);
-        public List<Product> GetAllProducts();
+        public ICollection<Product> GetAllProducts();
         public int GetNextProductId();
     }
 }

@@ -1,11 +1,17 @@
 ﻿using SmartMarketConsole.Data;
 using SmartMarketConsole.Models;
+using SmartMarketConsole.Repositories.Interfaces;
 
-namespace SmartMarketConsole.Repositories
+namespace SmartMarketConsole.Repositories.Impl
 {
-    public class CostumerRepository : ICostumerRepository
+    public class CustomerRepository : ICustomerRepository
     {
-        private readonly DbContext _dbContext = DbContext.GetInstance();
+        private readonly IDbContext _dbContext;
+
+        public CustomerRepository(IDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
 
         public bool AddCustomer(Customer customer)
         {
@@ -31,7 +37,7 @@ namespace SmartMarketConsole.Repositories
             }
         }
 
-        public List<Customer> GetAllCustomers()
+        public ICollection<Customer> GetAllCustomers()
         {
             try
             {
@@ -61,6 +67,11 @@ namespace SmartMarketConsole.Repositories
                 Console.WriteLine("Customer not found.");
                 return null;
             }
+        }
+
+        public int GetNextCustomerId()
+        {
+            return _dbContext.CustomerStorage.Count == 0 ? 1 : _dbContext.CustomerStorage.Keys.Max() + 1;
         }
 
         public void UpdateCustomer(Customer customer)

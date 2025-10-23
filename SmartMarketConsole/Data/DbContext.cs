@@ -5,7 +5,7 @@ namespace SmartMarketConsole.Data
     /// <summary>
     /// Class to simulate a database context using in-memory storage.
     /// </summary>
-    public class DbContext
+    public class DbContext : IDbContext
     {
         public Dictionary<int, Product> ProductStorage { get; set; }
         public Dictionary<int, Customer> CustomerStorage { get; set; }
