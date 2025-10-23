@@ -71,7 +71,7 @@ namespace SmartMarketConsole.Presentation.Views
             }
         }
 
-        public void DisplayProducts(List<Product> products)
+        public void DisplayProducts(ICollection<Product> products)
         {
             foreach(Product p in products)
             {

@@ -2,14 +2,14 @@
 {
     public class MainView
     {
-        public int GetOption()
+        public int GetOption(int minOption=1, int maxOption=6)
         {
             int choice;
             bool validInput = false;
             do
             {
                 validInput = int.TryParse(Console.ReadLine(), out choice);
-                validInput = validInput && choice >= 1 && choice <= 5;
+                validInput = validInput && choice >= minOption && choice <= maxOption;
                 if (!validInput)
                 {
                     Console.WriteLine("Invalid input. Please enter a number between 1 and 5.");
@@ -19,8 +19,16 @@
             return choice;
         }
 
+        public void WaitForUser()
+        {
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadKey();
+        }
+
         public int MainMenu()
         {
+            Console.Clear();
+
             Console.WriteLine("Welcome to the Smart Market!");
             Console.WriteLine("1. Costumers.");
             Console.WriteLine("2. Categories.");
@@ -28,11 +36,13 @@
             Console.WriteLine("4. Transactions.");
             Console.WriteLine("5. Finish Program.");
 
-            return GetOption();
+            return GetOption(maxOption: 5);
         }
 
         public int ProductsMenu()
         {
+            Console.Clear();
+
             Console.WriteLine("Products Menu:");
             Console.WriteLine("1. List all products.");
             Console.WriteLine("2. Search product by ID.");
@@ -42,11 +52,13 @@
             Console.WriteLine("6. Delete product.");
             Console.WriteLine("7. Return to Main Menu.");
 
-            return GetOption();
+            return GetOption(maxOption: 7);
         }
 
         public int CategoriesMenu()
         {
+            Console.Clear();
+
             Console.WriteLine("Categories Menu:");
             Console.WriteLine("1. List all categories.");
             Console.WriteLine("2. Search category by ID.");
@@ -73,6 +85,8 @@
 
         public int TransactionsMenu()
         {
+            Console.Clear();
+
             Console.WriteLine("Transactions Menu:");
             Console.WriteLine("1. List all transactions.");
             Console.WriteLine("2. Search transaction by ID.");

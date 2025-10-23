@@ -106,7 +106,7 @@ namespace SmartMarketConsole.Services.Impl
             return _customerRepository.GetAllCustomers();
         }
 
-        public Customer GetCustomerById(int customerId)
+        public Customer? GetCustomerById(int customerId)
         {
             try
             {

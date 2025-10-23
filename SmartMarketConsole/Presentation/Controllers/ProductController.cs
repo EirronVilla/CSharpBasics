@@ -4,12 +4,12 @@ using SmartMarketConsole.Services.Interfaces;
 
 namespace SmartMarketConsole.Presentation.Controllers
 {
-    public class ProductControllers
+    public class ProductController
     {
         private readonly IProductService _productService;
         private readonly ProductView _productsView;
 
-        public ProductControllers(IProductService productService, ProductView productsView)
+        public ProductController(IProductService productService, ProductView productsView)
         {
             _productService = productService;
             _productsView = productsView;
@@ -21,7 +21,7 @@ namespace SmartMarketConsole.Presentation.Controllers
             decimal price = _productsView.EnterProductPrice();
             int categoryId = _productsView.EnterProductCategoryId();
             int stockQuantity = _productsView.EnterProductStockQuantity();
-            _productService.AddProduct(name, 1, price, stockQuantity);
+            _productService.AddProduct(name, categoryId, price, stockQuantity);
         }
 
         public void DeleteProduct()

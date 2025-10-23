@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SmartMarketConsole.Models;
 
 namespace SmartMarketConsole.Presentation.Views
 {
@@ -35,6 +31,20 @@ namespace SmartMarketConsole.Presentation.Views
             Console.Write("Enter category description: ");
             string categoryDescription = Console.ReadLine() ?? string.Empty;
             return categoryDescription;
+        }
+
+        public void DisplayCategories(ICollection<Category> categories)
+        {
+            if(categories.Count == 0)
+            {
+                Console.WriteLine("There are no categories yet.");
+                return;
+            }
+
+            foreach(Category c in categories)
+            {
+                Console.WriteLine($"ID: {c.Id}, Name: {c.Name}, Description: {c.Description}");
+            }
         }
     }
 }
