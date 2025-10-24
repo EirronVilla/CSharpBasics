@@ -1,4 +1,6 @@
-﻿namespace SmartMarketConsole.Presentation.Views
+﻿using SmartMarketConsole.Models;
+
+namespace SmartMarketConsole.Presentation.Views
 {
     public class TransactionView
     {
@@ -58,6 +60,21 @@
                 continueInput = input.Equals("y", StringComparison.OrdinalIgnoreCase);
             } while (continueInput);
             return productIds;
+        }
+
+        public void DisplayTransactions(ICollection<Transaction> transactions)
+        {
+            if (transactions.Count == 0)
+            {
+                Console.WriteLine("There are no transactions yet.");
+                return;
+            }
+
+            foreach (Transaction t in transactions)
+            {
+                Console.WriteLine($"[ID: {t.Id}] Customer: {t.Customer.Id} - {t.Customer.Name} || Products:");
+                t.Products.ForEach(p => Console.WriteLine($"\t- [P-{p.Id}]: {p.Name} - ${p.Price}"));
+            }
         }
     }
 }

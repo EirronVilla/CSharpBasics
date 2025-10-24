@@ -8,6 +8,6 @@ namespace SmartMarketConsole.Commands
     public interface ITransactionCommand
     {
         void ExecuteAddProduct(Product product);
-        void UndoAddProduct();
+        void UndoAddProduct(int productId);
     }
 }

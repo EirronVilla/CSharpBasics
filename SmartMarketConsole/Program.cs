@@ -11,6 +11,22 @@ namespace SmartMarketConsole
 {
     public class Program
     {
+        static void Main(string[] args)
+        {
+            var ServiceCollection = new ServiceContainer();
+            ConfigureServices(ServiceCollection);
+
+            var mainController = new MainController(
+                new MainView(),
+                ServiceCollection.Resolve<CustomerController>(),
+                ServiceCollection.Resolve<CategoryController>(),
+                ServiceCollection.Resolve<ProductController>(),
+                ServiceCollection.Resolve<TransactionController>()
+            );
+
+            mainController.Run();
+        }
+
         private static void ConfigureServices(ServiceContainer services)
         {
             // Registering services in Service
@@ -40,22 +56,7 @@ namespace SmartMarketConsole
             services.RegisterTransient<CustomerController, CustomerController>();
             services.RegisterTransient<ProductController, ProductController>();
             services.RegisterTransient<TransactionController, TransactionController>();
-        }
 
-        static void Main(string[] args)
-        {
-            var ServiceCollection = new ServiceContainer();
-            ConfigureServices(ServiceCollection);
-
-            var mainController = new MainController(
-                new MainView(),
-                ServiceCollection.Resolve<CustomerController>(),
-                ServiceCollection.Resolve<CategoryController>(),
-                ServiceCollection.Resolve<ProductController>(),
-                ServiceCollection.Resolve<TransactionController>()
-            );
-
-            mainController.Run();
         }
     }
 }

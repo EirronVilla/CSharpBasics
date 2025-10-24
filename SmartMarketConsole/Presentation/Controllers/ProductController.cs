@@ -7,6 +7,7 @@ namespace SmartMarketConsole.Presentation.Controllers
     public class ProductController
     {
         private readonly IProductService _productService;
+        private readonly ICategoryService _categoryService;
         private readonly ProductView _productsView;
 
         public ProductController(IProductService productService, ProductView productsView)
@@ -66,6 +67,42 @@ namespace SmartMarketConsole.Presentation.Controllers
         {
             var products = _productService.GetAllProducts();
             _productsView.DisplayProducts(products);
+        }
+
+        public void SearchProduct()
+        {
+            var productId = _productsView.EnterProductId();
+            var product = _productService.GetProductById(productId);
+            
+            if(product is null)
+            {
+                Console.WriteLine($"Product with ID {productId} not found.");
+                return;
+            }
+
+            _productsView.DisplayProducts([product]);
+        }
+
+        public void SearchProductsByCategory()
+        {
+            var categoryId = _productsView.EnterProductCategoryId();
+            var categoryExists = _categoryService.GetCategoryById(categoryId) != null;
+            
+            if (!categoryExists)
+            {
+                Console.WriteLine($"Category with ID {categoryId} not found.");
+                return;
+            }
+
+            var products = _productService.GetAllProducts().Where(product => product.Category.Id == categoryId);
+
+            if(products.Count() == 0)
+            {
+                Console.WriteLine($"No products found in category ID {categoryId}.");
+                return;
+            }
+
+            _productsView.DisplayProducts(products.ToList());
         }
     }
 }

@@ -16,9 +16,16 @@ namespace SmartMarketConsole.Commands
             _transaction.Products.Add(product);
         }
 
-        public void UndoAddProduct()
+        public void UndoAddProduct(int productId)
         {
-            _transaction.Products.RemoveAt(_transaction.Products.Count - 1);
+            var productToRemove = _transaction.Products.FirstOrDefault(p => p.Id == productId);
+            
+            if (productToRemove is null)
+            {
+                return;
+            }
+
+            _transaction.Products.Remove(productToRemove);
         }
     }
 }

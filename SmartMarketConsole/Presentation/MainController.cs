@@ -60,6 +60,21 @@ namespace SmartMarketConsole.Presentation
                 int choice = _mainView.TransactionsMenu();
                 switch (choice)
                 {
+                    case 1:
+                        _transactionController.DisplayTransactions();
+                        break;
+                    case 2:
+                        _transactionController.SearchTransaction();
+                        break;
+                    case 3:
+                        _transactionController.AddTransaction();
+                        break;
+                    case 4:
+                        _transactionController.AddAdditionalProductsToTransaction();
+                        break;
+                    case 5:
+                        _transactionController.DeleteTransaction();
+                        break;
                     case 6:
                         exit = true;
                         break;
@@ -78,7 +93,25 @@ namespace SmartMarketConsole.Presentation
                 int choice = _mainView.ProductsMenu();
                 switch (choice)
                 {
+                    case 1:
+                        _productController.ListProducts();
+                        break;
+                    case 2:
+                        _productController.SearchProduct();
+                        break;
+                    case 3:
+                        _productController.SearchProductsByCategory();
+                        break;
+                    case 4:
+                        _productController.AddProduct();
+                        break;
+                    case 5:
+                        _productController.UpdateProduct();
+                        break;
                     case 6:
+                        _productController.DeleteProduct();
+                        break;
+                    case 7:
                         exit = true;
                         break;
                     default:

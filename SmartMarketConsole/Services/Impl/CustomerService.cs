@@ -17,7 +17,7 @@ namespace SmartMarketConsole.Services.Impl
             _transactionRepository = transactionRepo;
         }
 
-        public bool AddCustomers(string name, string email, string phone)
+        public bool AddCustomer(string name, string email, string phone)
         {
             try
             {

@@ -1,4 +1,6 @@
-﻿namespace SmartMarketConsole.Presentation.Views
+﻿using SmartMarketConsole.Models;
+
+namespace SmartMarketConsole.Presentation.Views
 {
     public class CustomerView
     {
@@ -36,6 +38,20 @@
             Console.Write("Enter customer phone: ");
             string customerPhone = Console.ReadLine() ?? string.Empty;
             return customerPhone;
+        }
+
+        public void DisplayCustomers(ICollection<Customer> customers)
+        {
+            if (customers.Count == 0)
+            {
+                Console.WriteLine("There are no categories yet.");
+                return;
+            }
+
+            foreach (Customer c in customers)
+            {
+                Console.WriteLine($"ID: {c.Id}, Name: {c.Name}, Email: {c.Email}, Phone: {c.Phone}");
+            }
         }
     }
 }

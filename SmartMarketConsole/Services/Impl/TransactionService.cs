@@ -1,4 +1,5 @@
-﻿using SmartMarketConsole.Models;
+﻿using SmartMarketConsole.Commands;
+using SmartMarketConsole.Models;
 using SmartMarketConsole.Repositories.Interfaces;
 using SmartMarketConsole.Services.Interfaces;
 
@@ -26,7 +27,13 @@ namespace SmartMarketConsole.Services.Impl
                 }
 
                 var products = _productRepository.GetAllProducts().Where(product => productIds.Contains(product.Id));
-                existingTransaction.Products.AddRange(products);
+
+                foreach (var product in products)
+                {
+                    var command = new TransactionCommand(existingTransaction);
+                    command.ExecuteAddProduct(product);
+                }
+
                 _transactionRepository.UpdateTransaction(existingTransaction);
                 return true;
 
